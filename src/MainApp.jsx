@@ -15,7 +15,8 @@ function MainApp() {
   const [data, setData] = useState({
     auth: false,
     // url: "http://127.0.0.1:9000",
-    url: "http://97.74.83.27:9000",
+    // url: "http://97.74.83.27:9000",
+    url: "https://backend.cuewellness.net",
     authToken: undefined,
   });
 

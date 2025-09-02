@@ -1,0 +1,121 @@
+.main {
+  height: 100%;
+  width: 100%;
+  position: absolute; /* Ensure relative positioning for the pseudo-element */
+  background: linear-gradient(
+    to bottom,
+    rgba(30, 63, 142, 1),
+    rgba(8, 11, 46, 1)
+  );
+  z-index: -1;
+}
+
+.main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url("../Images/background.png");
+  /* background-size: cover;
+    background-position: center; */
+  opacity: 0.5; /* Set the opacity of the image */
+  z-index: -1; /* Place it behind the content of .main */
+}
+
+.header {
+  height: 60px;
+  width: 100%;
+  /* background-color: red; */
+  box-sizing: border-box;
+  padding-left: 20px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  font-size: 20px;
+  color: white;
+}
+
+.login_form {
+  height: calc(100% - 60px);
+  width: 100%;
+  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.form {
+  height: 300px;
+  width: 300px;
+  /* background-color: red; */
+}
+
+.indi_input_outer {
+  height: 42px;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  border-radius: 30px;
+  margin-bottom: 10px;
+  /* box-sizing: border-box; */
+  /* padding-left: 20px; */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.1),
+    rgba(30, 53, 126, 0)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* color: white; */
+}
+.indi_input {
+  height: 100%;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  border-radius: 30px;
+  /* margin-bottom: 10px; */
+  box-sizing: border-box;
+  padding-left: 20px;
+  /* background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.1),
+      rgba(30, 53, 126, 0)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.09); */
+  background-color: transparent;
+  color: white;
+  outline: 0;
+}
+
+.indi_input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.7px;
+}
+
+.btn {
+  height: 40px;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  color: rgba(30, 63, 142, 1);
+  margin-bottom: 20px;
+  border-radius: 20px;
+}
+
+.fp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 14px;
+  font-weight: 300;
+}

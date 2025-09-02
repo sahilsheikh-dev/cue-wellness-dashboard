@@ -129,7 +129,8 @@ export default function Users() {
                   className={styles.gtpb}
                   onClick={() => {
                     // window.location.href = `/users-profile?id=${user_data.id}`;
-                    navigate(`./users-profile?id=${indi_user.id}`);
+                    // navigate(`./users-profile?id=${indi_user.id}`);
+                    navigate(`./users?id=${indi_user.id}`);
                   }}
                 >
                   Go to profile

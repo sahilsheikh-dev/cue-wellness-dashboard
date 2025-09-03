@@ -29,7 +29,7 @@ export default function CoachesProfile() {
         } else if (res.data.redirect != undefined) {
           // navigate here
           console.log(res.data.redirect);
-          window.location.href = res.data.redirect;
+          // window.location.href = res.data.redirect;
         } else {
           console.log(res.data.supply + "hello2");
           setInformation(res.data.supply);

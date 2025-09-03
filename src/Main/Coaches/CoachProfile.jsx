@@ -23,13 +23,15 @@ export default function CoachesProfile() {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data + "hello");
         if (res.data.alert != undefined) {
           alert(res.data.alert);
         } else if (res.data.redirect != undefined) {
           // navigate here
+          console.log(res.data.redirect);
+          window.location.href = res.data.redirect;
         } else {
-          console.log(res.data.supply);
+          console.log(res.data.supply + "hello2");
           setInformation(res.data.supply);
         }
         console.log(res);

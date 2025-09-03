@@ -18,6 +18,8 @@ export default function CoachesProfile() {
   useEffect(() => {
     let endpoint = "";
 
+    console.log(type);
+
     if (type === "verified") {
       endpoint = "/coach/get-verified-coach";
     } else if (type === "unverified") {

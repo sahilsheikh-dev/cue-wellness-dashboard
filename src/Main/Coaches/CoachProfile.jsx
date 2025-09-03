@@ -26,7 +26,7 @@ export default function CoachesProfile() {
     } else if (type === "unverified") {
       alert("Unverified Coach Profile Loading...");
       endpoint = "/coach/get-un-verified-coach";
-    } else if (type === "halfverified") {
+    } else if (type === "half_verified") {
       alert("Half-Verified Coach Profile Loading...");
       endpoint = "/coach/get-half-verified-coach";
     } else {

@@ -1,3 +1,9 @@
+import axios from "axios";
+import { useState, useEffect, useContext } from "react";
+import styles from "./Coaches.module.css";
+import DataContext from "../../DataContext/DataContext";
+import { useNavigate } from "react-router-dom";
+
 export default function Coaches() {
   const navigate = useNavigate();
   const { data } = useContext(DataContext);

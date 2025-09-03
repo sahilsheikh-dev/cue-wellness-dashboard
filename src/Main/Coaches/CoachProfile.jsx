@@ -1,7 +1,9 @@
 import { useEffect, useContext, useState } from "react";
+import styles from "./CoachProfile.module.css";
+import { Link } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
-import axios from "axios";
 import DataContext from "../../DataContext/DataContext";
+import axios from "axios";
 
 export default function CoachesProfile() {
   const { data } = useContext(DataContext);

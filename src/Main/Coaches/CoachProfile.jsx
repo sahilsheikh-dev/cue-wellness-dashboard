@@ -27,6 +27,7 @@ export default function CoachesProfile() {
           alert(res.data.alert);
         } else if (res.data.redirect != undefined) {
           // navigate here
+          navigate("/coaches");
         } else {
           console.log(res.data.supply);
           setInformation(res.data.supply);
@@ -35,7 +36,7 @@ export default function CoachesProfile() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [id, data.url]);
 
   const verify = () => {
     alert("Verifying Coach...");
@@ -100,7 +101,7 @@ export default function CoachesProfile() {
           </div>
           <div className={styles.profile_goto_chat_section}>
             {information.verified == false ? (
-              <div className={styles.profile_goto_chat_btn} onClick={verify()}>
+              <div className={styles.profile_goto_chat_btn} onClick={verify}>
                 Verify
               </div>
             ) : (

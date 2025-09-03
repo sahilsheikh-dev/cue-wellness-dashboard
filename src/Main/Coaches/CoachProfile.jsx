@@ -38,6 +38,7 @@ export default function CoachesProfile() {
   }, []);
 
   const verify = () => {
+    alert("Verifying Coach...");
     axios
       .post(
         data.url + "/coach/verify-coach",

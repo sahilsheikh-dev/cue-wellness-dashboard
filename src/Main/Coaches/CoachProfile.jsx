@@ -100,7 +100,7 @@ export default function CoachesProfile() {
           </div>
           <div className={styles.profile_goto_chat_section}>
             {information.verified == false ? (
-              <div className={styles.profile_goto_chat_btn} onClick={verify}>
+              <div className={styles.profile_goto_chat_btn} onClick={verify()}>
                 Verify
               </div>
             ) : (

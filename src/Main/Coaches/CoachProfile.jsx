@@ -31,6 +31,11 @@ export default function CoachesProfile() {
           console.log(res.data.supply);
           setInformation(res.data.supply);
         }
+        console.log(res);
+        console.log(res.data);
+        console.log(res.data.supply);
+
+        console.log(information);
       })
       .catch((err) => {
         console.log(err);

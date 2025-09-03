@@ -45,6 +45,7 @@ export default function CoachesProfile() {
 
   // Verification function example
   const verify = () => {
+    alert("Verifying...");
     const endpoint =
       information.verified === false
         ? "/coach/verify-coach"
@@ -54,9 +55,12 @@ export default function CoachesProfile() {
 
     if (!endpoint) return;
 
+    alert("Verifying...");
+
     axios
       .post(data.url + endpoint, { id }, { withCredentials: true })
       .then((res) => {
+        console.log(res.data);
         if (res.data.alert) {
           alert(res.data.alert);
         } else {
@@ -72,6 +76,7 @@ export default function CoachesProfile() {
               else setInformation(res.data.supply);
             });
         }
+        alert("Verification process completed.");
       });
   };
 

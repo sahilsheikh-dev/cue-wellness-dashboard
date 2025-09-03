@@ -31,6 +31,8 @@ export default function CoachesProfile() {
 
     console.log(id);
 
+    console.log(endpoint);
+
     axios
       .post(data.url + endpoint, { id: id }, { withCredentials: true })
       .then((res) => {

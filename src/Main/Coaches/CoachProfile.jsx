@@ -4,10 +4,7 @@ import { Link } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import DataContext from "../../DataContext/DataContext";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-
 export default function CoachesProfile() {
-  const navigate = useNavigate();
   const { data } = useContext(DataContext);
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
@@ -30,7 +27,6 @@ export default function CoachesProfile() {
           alert(res.data.alert);
         } else if (res.data.redirect != undefined) {
           // navigate here
-          navigate("./coaches");
         } else {
           console.log(res.data.supply);
           setInformation(res.data.supply);
@@ -39,49 +35,47 @@ export default function CoachesProfile() {
       .catch((err) => {
         console.log(err);
       });
-  }, [id, data.url]);
+  }, []);
 
   const verify = () => {
-    alert("Verifying Coach...");
+    const endpoint =
+      information.verified === false
+        ? "/coach/verify-coach"
+        : information.verified === "half"
+        ? "/coach/verify-coach-final"
+        : null;
+
+    if (!endpoint) return; // Already fully verified, nothing to do
+
     axios
-      .post(
-        data.url + "/coach/verify-coach",
-        {
-          id: id,
-        },
-        {
-          withCredentials: true,
-        }
-      )
+      .post(data.url + endpoint, { id }, { withCredentials: true })
       .then((res) => {
         console.log(res.data);
-        if (res.data.alert != undefined) {
+        if (res.data.alert) {
           alert(res.data.alert);
-        } else if (res.data.redirect != undefined) {
-          // navigate here
+        } else if (res.data.redirect) {
+          // handle redirect here if needed
         } else {
+          // Refresh coach info
           axios
             .post(
               data.url + "/coach/get-indi-coach",
-              { id: id },
+              { id },
               { withCredentials: true }
             )
             .then((res) => {
-              console.log(res.data);
-              if (res.data.alert != undefined) {
+              if (res.data.alert) {
                 alert(res.data.alert);
-              } else if (res.data.redirect != undefined) {
-                // navigate here
+              } else if (res.data.redirect) {
+                // handle redirect
               } else {
-                console.log(res.data.supply);
                 setInformation(res.data.supply);
               }
             })
-            .catch((err) => {
-              console.log(err);
-            });
+            .catch((err) => console.log(err));
         }
-      });
+      })
+      .catch((err) => console.log(err));
   };
 
   const [section, setSection] = useState("personal_information");

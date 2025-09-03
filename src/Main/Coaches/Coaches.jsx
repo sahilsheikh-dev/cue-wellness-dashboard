@@ -139,7 +139,6 @@ export default function Coaches() {
           onClick={() => {
             // setShow_guidelines(true);
             setMenu_selection("1");
-            alert("Loading...1" + menu_selection);
             setUser_data([]);
             get_all_coaches();
           }}
@@ -219,7 +218,6 @@ export default function Coaches() {
           onClick={() => {
             // setShow_guidelines(true);
             setMenu_selection("2");
-            alert("Loading...2" + menu_selection);
             setUser_data([]);
             get_all_unverified_coaches();
           }}
@@ -299,7 +297,6 @@ export default function Coaches() {
           onClick={() => {
             // setShow_guidelines(true);
             setMenu_selection("3");
-            alert("Loading...3" + menu_selection);
             setUser_data([]);
             get_all_half_verified_coaches();
           }}

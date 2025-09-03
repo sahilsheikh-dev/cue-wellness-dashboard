@@ -397,9 +397,20 @@ export default function Coaches() {
                 <div className={styles.go_to_profile_section_btn}>
                   <div
                     className={styles.gtpb}
-                    onClick={() => {
-                      navigate("./coach-profile?id=" + indi_user.id);
-                    }}
+                    // onClick={() => {
+                    //   navigate("./coach-profile?id=" + indi_user.id);
+                    // }}s
+                    onClick={() =>
+                      navigate(
+                        `./coach-profile?id=${indi_user.id}&type=${
+                          menu_selection === "1"
+                            ? "verified"
+                            : menu_selection === "2"
+                            ? "unverified"
+                            : "halfverified"
+                        }`
+                      )
+                    }
                   >
                     Go to profile
                   </div>

@@ -21,16 +21,16 @@ export default function CoachesProfile() {
     console.log(type);
 
     if (type === "verified") {
-      alert("Verified Coach Profile Loading...");
+      console.log("Verified Coach Profile Loading...");
       endpoint = "/coach/get-verified-coach";
     } else if (type === "unverified") {
-      alert("Unverified Coach Profile Loading...");
+      console.log("Un-Verified Coach Profile Loading...");
       endpoint = "/coach/get-un-verified-coach";
     } else if (type === "half_verified") {
-      alert("Half-Verified Coach Profile Loading...");
+      console.log("Half-Verified Coach Profile Loading...");
       endpoint = "/coach/get-half-verified-coach";
     } else {
-      alert("Loading Individual Coach Profile...");
+      console.log("Loading Individual Coach Profile...");
       // Default fallback or error handling
       endpoint = "/coach/get-indi-coach";
     }

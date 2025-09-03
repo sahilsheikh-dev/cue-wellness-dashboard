@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import DataContext from "../../DataContext/DataContext";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 export default function CoachesProfile() {
+  const navigate = useNavigate();
   const { data } = useContext(DataContext);
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
@@ -27,7 +30,7 @@ export default function CoachesProfile() {
           alert(res.data.alert);
         } else if (res.data.redirect != undefined) {
           // navigate here
-          navigate("/coaches");
+          navigate("./coaches");
         } else {
           console.log(res.data.supply);
           setInformation(res.data.supply);

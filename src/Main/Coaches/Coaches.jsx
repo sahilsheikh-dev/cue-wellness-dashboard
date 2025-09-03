@@ -139,6 +139,7 @@ export default function Coaches() {
           onClick={() => {
             // setShow_guidelines(true);
             setMenu_selection("1");
+            alert("Loading...1" + menu_selection);
             setUser_data([]);
             get_all_coaches();
           }}
@@ -218,6 +219,7 @@ export default function Coaches() {
           onClick={() => {
             // setShow_guidelines(true);
             setMenu_selection("2");
+            alert("Loading...2" + menu_selection);
             setUser_data([]);
             get_all_unverified_coaches();
           }}
@@ -297,6 +299,7 @@ export default function Coaches() {
           onClick={() => {
             // setShow_guidelines(true);
             setMenu_selection("3");
+            alert("Loading...3" + menu_selection);
             setUser_data([]);
             get_all_half_verified_coaches();
           }}
@@ -402,13 +405,7 @@ export default function Coaches() {
                     // }}s
                     onClick={() =>
                       navigate(
-                        `./coach-profile?id=${indi_user.id}&type=${
-                          menu_selection === "1"
-                            ? "verified"
-                            : menu_selection === "2"
-                            ? "unverified"
-                            : "halfverified"
-                        }`
+                        `./coach-profile?id=${indi_user.id}&type=${"verified"}`
                       )
                     }
                   >
@@ -447,9 +444,16 @@ export default function Coaches() {
                 <div className={styles.go_to_profile_section_btn}>
                   <div
                     className={styles.gtpb}
-                    onClick={() => {
-                      navigate("./coach-profile?id=" + indi_user.id);
-                    }}
+                    // onClick={() => {
+                    //   navigate("./coach-profile?id=" + indi_user.id);
+                    // }}
+                    onClick={() =>
+                      navigate(
+                        `./coach-profile?id=${
+                          indi_user.id
+                        }&type=${"unverified"}`
+                      )
+                    }
                   >
                     Go to profile
                   </div>
@@ -486,9 +490,16 @@ export default function Coaches() {
                 <div className={styles.go_to_profile_section_btn}>
                   <div
                     className={styles.gtpb}
-                    onClick={() => {
-                      navigate("./coach-profile?id=" + indi_user.id);
-                    }}
+                    // onClick={() => {
+                    //   navigate("./coach-profile?id=" + indi_user.id);
+                    // }}
+                    onClick={() =>
+                      navigate(
+                        `./coach-profile?id=${
+                          indi_user.id
+                        }&type=${"half_verified"}`
+                      )
+                    }
                   >
                     Go to profile
                   </div>

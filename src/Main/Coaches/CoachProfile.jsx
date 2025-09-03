@@ -9,41 +9,44 @@ export default function CoachesProfile() {
   const { data } = useContext(DataContext);
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
+  const type = searchParams.get("type"); // This indicates coach type: verified, unverified, half-verified
+  const [information, setInformation] = useState({});
   const go_to_users = () => {
     window.location.href = "/users";
   };
-  const [information, setInformation] = useState({});
 
   useEffect(() => {
-    console.log(id);
-    axios
-      .post(
-        data.url + "/coach/get-indi-coach",
-        { id: id },
-        { withCredentials: true }
-      )
-      .then((res) => {
-        console.log(res.data + "hello");
-        if (res.data.alert != undefined) {
-          alert(res.data.alert);
-        } else if (res.data.redirect != undefined) {
-          // navigate here
-          console.log(res.data.redirect);
-          // window.location.href = res.data.redirect;
-        } else {
-          console.log(res.data.supply + "hello2");
-          setInformation(res.data.supply);
-        }
-        console.log(res);
-        console.log(res.data);
-        console.log(res.data.supply);
+    let endpoint = "";
 
-        console.log(information);
+    if (type === "verified") {
+      endpoint = "/coach/get-verified-coach";
+    } else if (type === "unverified") {
+      endpoint = "/coach/get-un-verified-coach";
+    } else if (type === "halfverified") {
+      endpoint = "/coach/get-half-verified-coach";
+    } else {
+      // Default fallback or error handling
+      endpoint = "/coach/get-indi-coach";
+    }
+
+    console.log(id);
+
+    axios
+      .post(data.url + endpoint, { id: id }, { withCredentials: true })
+      .then((res) => {
+        if (res.data.alert) {
+          alert(res.data.alert);
+          go_to_users();
+        } else if (res.data.redirect) {
+          alert("Session expired. Please log in again.");
+          // handle redirect if needed
+        } else {
+          setInformation(res.data.supply);
+          console.log(res.data.supply);
+        }
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+      .catch((err) => console.log(err));
+  }, [id, type, data.url]);
 
   // Verification function example
   const verify = () => {

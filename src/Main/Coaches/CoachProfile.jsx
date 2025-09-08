@@ -4,85 +4,76 @@ import { Link } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import DataContext from "../../DataContext/DataContext";
 import axios from "axios";
-
 export default function CoachesProfile() {
   const { data } = useContext(DataContext);
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
-  const type = searchParams.get("type"); // This indicates coach type: verified, unverified, half-verified
-  const [information, setInformation] = useState({});
   const go_to_users = () => {
     window.location.href = "/users";
   };
+  const [information, setInformation] = useState({});
 
   useEffect(() => {
-    let endpoint = "";
-
-    console.log(type);
-
-    if (type === "verified") {
-      console.log("Verified Coach Profile Loading...");
-      endpoint = "/coach/get-verified-coach";
-    } else if (type === "unverified") {
-      console.log("Un-Verified Coach Profile Loading...");
-      endpoint = "/coach/get-un-verified-coach";
-    } else if (type === "half_verified") {
-      console.log("Half-Verified Coach Profile Loading...");
-      endpoint = "/coach/get-half-verified-coach";
-    } else {
-      console.log("Loading Individual Coach Profile...");
-      // Default fallback or error handling
-      endpoint = "/coach/get-indi-coach";
-    }
-
     console.log(id);
-
-    console.log(endpoint);
-
     axios
-      .post(data.url + endpoint, { id: id }, { withCredentials: true })
+      .post(
+        data.url + "/coach/get-indi-coach",
+        { id: id },
+        { withCredentials: true }
+      )
       .then((res) => {
-        if (res.data.alert) {
+        console.log(res.data);
+        if (res.data.alert != undefined) {
           alert(res.data.alert);
-          go_to_users();
-        } else if (res.data.redirect) {
-          alert("Session expired. Please log in again.");
-          // handle redirect if needed
+        } else if (res.data.redirect != undefined) {
+          // navigate here
         } else {
-          setInformation(res.data.supply);
           console.log(res.data.supply);
+          setInformation(res.data.supply);
         }
       })
-      .catch((err) => console.log(err));
-  }, [id, type, data.url]);
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-  // Verification function example
   const verify = () => {
-    const endpoint =
-      information.verified === false
-        ? "/coach/verify-coach"
-        : information.verified === "half"
-        ? "/coach/verify-coach-final"
-        : null;
-
-    if (!endpoint) return;
-
     axios
-      .post(data.url + endpoint, { id }, { withCredentials: true })
+      .post(
+        data.url + "/coach/verify-coach",
+        {
+          id: id,
+        },
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => {
-        if (res.data.alert) {
+        console.log(res.data);
+        if (res.data.alert != undefined) {
           alert(res.data.alert);
+        } else if (res.data.redirect != undefined) {
+          // navigate here
         } else {
-          // Refresh details after verification
           axios
             .post(
               data.url + "/coach/get-indi-coach",
-              { id },
+              { id: id },
               { withCredentials: true }
             )
             .then((res) => {
-              if (res.data.alert) alert(res.data.alert);
-              else setInformation(res.data.supply);
+              console.log(res.data);
+              if (res.data.alert != undefined) {
+                alert(res.data.alert);
+              } else if (res.data.redirect != undefined) {
+                // navigate here
+              } else {
+                console.log(res.data.supply);
+                setInformation(res.data.supply);
+              }
+            })
+            .catch((err) => {
+              console.log(err);
             });
         }
       });
@@ -108,13 +99,7 @@ export default function CoachesProfile() {
           </div>
           <div className={styles.profile_goto_chat_section}>
             {information.verified == false ? (
-              <div
-                className={styles.profile_goto_chat_btn}
-                onClick={() => {
-                  alert("Test begawo");
-                  verify();
-                }}
-              >
+              <div className={styles.profile_goto_chat_btn} onClick={verify}>
                 Verify
               </div>
             ) : (

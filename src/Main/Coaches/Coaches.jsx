@@ -3,7 +3,6 @@ import { useState, useEffect, useContext } from "react";
 import styles from "./Coaches.module.css";
 import DataContext from "../../DataContext/DataContext";
 import { useNavigate } from "react-router-dom";
-
 export default function Coaches() {
   const navigate = useNavigate();
   const { data } = useContext(DataContext);
@@ -12,15 +11,24 @@ export default function Coaches() {
 
   const get_all_coaches = () => {
     axios
-      .post(data.url + "/coach/get-all-coaches", {}, { withCredentials: true })
+      .post(
+        data.url + "/coach/get-all-coaches",
+        {},
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => {
-        if (res.data.res === true) {
+        if (res.data.res == true) {
           setUser_data(res.data.supply);
-        } else if (res.data.alert) {
+        } else if (res.data.alert != undefined) {
           alert(res.data.alert);
         }
       })
-      .catch(() => alert("Something went wrong, please login again"));
+      .catch((err) => {
+        console.log(err);
+        alert("Something went wrong, please login again to comtinue");
+      });
   };
 
   const get_all_unverified_coaches = () => {
@@ -28,16 +36,21 @@ export default function Coaches() {
       .post(
         data.url + "/coach/get-all-unverified-coaches",
         {},
-        { withCredentials: true }
+        {
+          withCredentials: true,
+        }
       )
       .then((res) => {
-        if (res.data.res === true) {
+        if (res.data.res == true) {
           setUser_data(res.data.supply);
-        } else if (res.data.alert) {
+        } else if (res.data.alert != undefined) {
           alert(res.data.alert);
         }
       })
-      .catch(() => alert("Something went wrong, please login again"));
+      .catch((err) => {
+        console.log(err);
+        alert("Something went wrong, please login again to comtinue");
+      });
   };
 
   const get_all_half_verified_coaches = () => {
@@ -45,16 +58,21 @@ export default function Coaches() {
       .post(
         data.url + "/coach/get-all-half-verified-coaches",
         {},
-        { withCredentials: true }
+        {
+          withCredentials: true,
+        }
       )
       .then((res) => {
-        if (res.data.res === true) {
+        if (res.data.res == true) {
           setUser_data(res.data.supply);
-        } else if (res.data.alert) {
+        } else if (res.data.alert != undefined) {
           alert(res.data.alert);
         }
       })
-      .catch(() => alert("Something went wrong, please login again"));
+      .catch((err) => {
+        console.log(err);
+        alert("Something went wrong, please login again to comtinue");
+      });
   };
 
   return (
@@ -397,14 +415,9 @@ export default function Coaches() {
                 <div className={styles.go_to_profile_section_btn}>
                   <div
                     className={styles.gtpb}
-                    // onClick={() => {
-                    //   navigate("./coach-profile?id=" + indi_user.id);
-                    // }}s
-                    onClick={() =>
-                      navigate(
-                        `./coach-profile?id=${indi_user.id}&type=${"verified"}`
-                      )
-                    }
+                    onClick={() => {
+                      navigate("./coach-profile?id=" + indi_user.id);
+                    }}
                   >
                     Go to profile
                   </div>
@@ -441,16 +454,9 @@ export default function Coaches() {
                 <div className={styles.go_to_profile_section_btn}>
                   <div
                     className={styles.gtpb}
-                    // onClick={() => {
-                    //   navigate("./coach-profile?id=" + indi_user.id);
-                    // }}
-                    onClick={() =>
-                      navigate(
-                        `./coach-profile?id=${
-                          indi_user.id
-                        }&type=${"unverified"}`
-                      )
-                    }
+                    onClick={() => {
+                      navigate("./coach-profile?id=" + indi_user.id);
+                    }}
                   >
                     Go to profile
                   </div>
@@ -487,16 +493,9 @@ export default function Coaches() {
                 <div className={styles.go_to_profile_section_btn}>
                   <div
                     className={styles.gtpb}
-                    // onClick={() => {
-                    //   navigate("./coach-profile?id=" + indi_user.id);
-                    // }}
-                    onClick={() =>
-                      navigate(
-                        `./coach-profile?id=${
-                          indi_user.id
-                        }&type=${"half_verified"}`
-                      )
-                    }
+                    onClick={() => {
+                      navigate("./coach-profile?id=" + indi_user.id);
+                    }}
                   >
                     Go to profile
                   </div>

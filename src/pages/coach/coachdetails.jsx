@@ -12,7 +12,7 @@ import ProgressContext from "../../components/progresscontext/progresscontext";
 import { Progress } from "../../components/ui/progress";
 import LayoutPage from "../../components/layout/layoutPage";
 import { ArrowLeft } from "lucide-react";
-import InfoCard from "../../components/common/InfoCard";
+import InfoCard from "../../components/common/infoCard";
 
 export default function CoachDetails() {
   const { id } = useParams();

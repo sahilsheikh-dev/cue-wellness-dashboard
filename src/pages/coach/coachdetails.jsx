@@ -105,11 +105,10 @@ export default function CoachDetails() {
             {tabs.map((tab) => (
               <button
                 key={tab}
-                className={`text-left px-4 py-2 rounded-lg font-medium ${
-                  activeTab === tab
+                className={`text-left px-4 py-2 rounded-lg font-medium ${activeTab === tab
                     ? "bg-blue-100 text-blue-700"
                     : "text-gray-700 hover:bg-gray-100"
-                }`}
+                  }`}
                 onClick={() => setActiveTab(tab)}
               >
                 {tab}
@@ -225,16 +224,26 @@ export default function CoachDetails() {
                         {coach.name || "Not Found"}
                       </h2>
                       <span
-                        className={`px-3 py-1 rounded-full text-sm font-semibold text-white shadow ${
-                          coach.status === "Verified"
+                        className={`px-3 py-1 rounded-full text-sm font-semibold text-white shadow ${coach.status === "Verified"
                             ? "bg-green-500"
                             : coach.status === "Pending"
-                            ? "bg-yellow-500"
-                            : "bg-red-500"
-                        }`}
+                              ? "bg-yellow-500"
+                              : "bg-red-500"
+                          }`}
                       >
                         {coach.status || "Not Found"}
                       </span>
+
+                      {/* Blocked/Unblocked Badge */}
+                      {coach.isBlocked ? (
+                        <span className="px-3 py-1 rounded-full text-sm font-semibold text-white shadow bg-red-700">
+                          Blocked
+                        </span>
+                      ) : (
+                        <span className="px-3 py-1 rounded-full text-sm font-semibold text-white shadow bg-green-700">
+                          Active
+                        </span>
+                      )}
                     </div>
 
                     <div className=" text-gray-700">
@@ -431,8 +440,8 @@ export default function CoachDetails() {
                           {s.booking_status === "true"
                             ? "Booked"
                             : s.booking_status === "false"
-                            ? "Available"
-                            : "Not Found"}
+                              ? "Available"
+                              : "Not Found"}
                         </td>
                       </tr>
                     ))}
@@ -446,7 +455,7 @@ export default function CoachDetails() {
 
           {/* Coach Agreement Terms tab */}
           {activeTab === "Coach Agreement Terms" && (
-            <div space-y-4>
+            <div className=" p-6  space-y-2" >
               {coach.agreement_terms ? (
                 <div className="bg-white p-6 rounded-xl shadow space-y-2">
                   <h3 className="font-semibold text-lg">📄 Agreement Terms</h3>
@@ -463,7 +472,7 @@ export default function CoachDetails() {
 
           {/* Agreements Tab */}
           {activeTab === "Agreements" && (
-            <div className="space-y-4">
+            <div className="space-y-4 p-6">
               <div className="bg-white p-6 rounded-xl shadow space-y-2">
                 <h3 className="font-semibold text-lg">✅ Agreements</h3>
                 <p>

@@ -190,7 +190,7 @@ export function DataTable({
         />
 
         {/* Right side filters */}
-        <div className="ml-auto flex items-center gap-4">
+        <div className="ml-auto flex items-center gap-3">
           {/* Status filter */}
           {statuses.length > 0 && (
             <DropdownMenu>
@@ -230,7 +230,7 @@ export function DataTable({
                   : "DATE"}
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0">
+            <PopoverContent className="w-auto p-2 data-[side=bottom]:mt-2">
               <CalendarComponent
                 mode="single"
                 selected={selectedDate}

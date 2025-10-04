@@ -1,60 +1,123 @@
 /* src/styles/Background.css */
-@import '../variables.scss';
+@import "../variables.scss";
 
 /* Full page gradient background */
 .bg-background {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    /* fixed to cover full viewport */
-    top: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    background: linear-gradient(to bottom, var(--light-blue), var(--dark-blue));
-    background-color: var(--navy-blue);
-    z-index: -1;
-    /* push behind content */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  /* fixed to cover full viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(to bottom, var(--light-blue), var(--dark-blue));
+  background-color: var(--navy-blue);
+  z-index: -1;
+  /* push behind content */
 }
 
 /* Sparkler animation container */
 .sparklers {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
 }
 
 /* Individual spark */
 .spark {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    background: var(--gold-spark);
-    border-radius: 50%;
-    opacity: 0.8;
-    /* animation: sparkle 2s infinite ease-in-out; */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background: var(--gold-spark);
+  border-radius: 50%;
+  opacity: 0.8;
+  /* animation: sparkle 2s infinite ease-in-out; */
 }
 
 @keyframes sparkle {
-    0% {
-        transform: translateY(0) scale(0.5);
-        opacity: 0.8;
-    }
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0.8;
+  }
 
-    50% {
-        transform: translateY(-20px) scale(1);
-        opacity: 1;
-    }
+  50% {
+    transform: translateY(-20px) scale(1);
+    opacity: 1;
+  }
 
-    100% {
-        transform: translateY(0) scale(0.5);
-        opacity: 0;
-    }
+  100% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0;
+  }
+}
+
+:root {
+  --light-blue: #7fc4ff;
+  --dark-blue: #0b2545;
+  --navy-blue: #081c2f;
+  --gold-spark: #ffd166;
+}
+
+/* ✅ makes the shell at least viewport tall, independent of children */
+.bg-root {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+
+}
+
+/* ✅ fixed to the viewport, not to content */
+.bg-background {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(to bottom, var(--light-blue), var(--dark-blue));
+  background-color: var(--navy-blue);
+}
+
+.sparklers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.spark {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--gold-spark);
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: sparkle 2s infinite ease-in-out;
+}
+
+@keyframes sparkle {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-18px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0.1;
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 1;
 }

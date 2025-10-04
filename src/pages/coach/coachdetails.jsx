@@ -12,6 +12,7 @@ import ProgressContext from "../../components/progresscontext/progresscontext";
 import { Progress } from "../../components/ui/progress";
 import LayoutPage from "../../components/layout/layoutPage";
 import { ArrowLeft } from "lucide-react";
+import InfoCard from "../../components/common/InfoCard";
 
 export default function CoachDetails() {
   const { id } = useParams();
@@ -105,10 +106,11 @@ export default function CoachDetails() {
             {tabs.map((tab) => (
               <button
                 key={tab}
-                className={`text-left px-4 py-2 rounded-lg font-medium ${activeTab === tab
+                className={`text-left px-4 py-2 rounded-lg font-medium ${
+                  activeTab === tab
                     ? "bg-blue-100 text-blue-700"
                     : "text-gray-700 hover:bg-gray-100"
-                  }`}
+                }`}
                 onClick={() => setActiveTab(tab)}
               >
                 {tab}
@@ -224,12 +226,13 @@ export default function CoachDetails() {
                         {coach.name || "Not Found"}
                       </h2>
                       <span
-                        className={`px-3 py-1 rounded-full text-sm font-semibold text-white shadow ${coach.status === "Verified"
+                        className={`px-3 py-1 rounded-full text-sm font-semibold text-white shadow ${
+                          coach.status === "Verified"
                             ? "bg-green-500"
                             : coach.status === "Pending"
-                              ? "bg-yellow-500"
-                              : "bg-red-500"
-                          }`}
+                            ? "bg-yellow-500"
+                            : "bg-red-500"
+                        }`}
                       >
                         {coach.status || "Not Found"}
                       </span>
@@ -299,8 +302,7 @@ export default function CoachDetails() {
               </div>
 
               {/* Acceptance Details */}
-              <div className="bg-white p-6 rounded-xl shadow space-y-1">
-                <h3 className="font-semibold text-lg">🕒 Extra Details</h3>
+              <InfoCard title="🕒 Extra Details">
                 <p>
                   Genders:{" "}
                   {coach.accepted_genders?.length
@@ -319,12 +321,11 @@ export default function CoachDetails() {
                     ? coach.my_activities.join(", ")
                     : "Not Found"}
                 </p>
-              </div>
+              </InfoCard>
 
               {/* Experience & Story */}
-              <div className="bg-white p-6 rounded-xl shadow space-y-2">
-                <h3 className="font-semibold text-lg">📝 Experience & Story</h3>
-                <p>Experience Since: {coach.experience_since_date || 0}</p>
+              <InfoCard title="📝 Experience & Story">
+                <p>Experience Since: {coach.experience_since_date || "NA"}</p>
                 {coach.story ? (
                   <div
                     className="prose max-w-none"
@@ -333,25 +334,24 @@ export default function CoachDetails() {
                 ) : (
                   <p>Not Found</p>
                 )}
-              </div>
+              </InfoCard>
 
               {/* Certificates */}
 
-              <div className="bg-white p-6 rounded-xl shadow space-y-3">
-                <h3 className="font-semibold text-lg">🎓 Certificates</h3>
+              <InfoCard title="🎓 Certificates">
                 {coach.certificates?.length > 0 ? (
                   <ul className="grid grid-cols-1 sm:grid-cols-5 md:grid-cols-2 gap-4 list-disc pl-6 space-y-2">
-                    {coach.certificates.map((cert) => {
+                    {coach.certificates.map((cert, index) => {
                       const fileName = cert.path.split("/").pop(); // Extract file name from URL
                       return (
-                        <li key={cert._id || cert.index}>
+                        <li key={cert._id || cert.index || index}>
                           <a
                             href={cert.path}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-600 hover:underline break-all"
                           >
-                            {fileName || `Certificate ${cert.index + 1}`}
+                            {`Certificate ${index + 1}`}
                           </a>
                         </li>
                       );
@@ -360,14 +360,13 @@ export default function CoachDetails() {
                 ) : (
                   <p>No certificates found</p>
                 )}
-              </div>
+              </InfoCard>
 
               {/* Work Portfolio */}
-              <div className="bg-white p-6 rounded-xl shadow space-y-3">
-                <h3 className="font-semibold text-lg">💼 Work Portfolio</h3>
+              <InfoCard title="💼 Work Portfolio">
                 {coach.workAssets?.length > 0 ? (
                   <ul className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-10 list-disc pl-6 space-y-2">
-                    {coach.workAssets.map((asset) => {
+                    {coach.workAssets.map((asset, index) => {
                       const fileName = asset.path?.split("/").pop(); // Extract file name from URL
                       return (
                         <li key={asset.id || asset.index}>
@@ -377,9 +376,7 @@ export default function CoachDetails() {
                             rel="noopener noreferrer"
                             className="text-blue-600 hover:underline break-all"
                           >
-                            {fileName ||
-                              asset.type?.toUpperCase() ||
-                              "Not Found"}
+                            {`Work Asset ${index + 1}`}
                           </a>
                         </li>
                       );
@@ -388,14 +385,13 @@ export default function CoachDetails() {
                 ) : (
                   <p>No work portfolio found</p>
                 )}
-              </div>
+              </InfoCard>
             </div>
           )}
 
           {/* Sessions Tab */}
           {activeTab === "Sessions History" && (
-            <div className="bg-white p-6 rounded-xl shadow mt-6">
-              <h3 className="font-semibold text-lg">📅 Sessions History</h3>
+            <InfoCard title="📅 Sessions History">
               {coach.sessions?.length > 0 ? (
                 <table className="w-full mt-3 border text-sm">
                   <thead>
@@ -440,8 +436,8 @@ export default function CoachDetails() {
                           {s.booking_status === "true"
                             ? "Booked"
                             : s.booking_status === "false"
-                              ? "Available"
-                              : "Not Found"}
+                            ? "Available"
+                            : "Not Found"}
                         </td>
                       </tr>
                     ))}
@@ -450,31 +446,27 @@ export default function CoachDetails() {
               ) : (
                 <p>No sessions found</p>
               )}
-            </div>
+            </InfoCard>
           )}
 
           {/* Coach Agreement Terms tab */}
           {activeTab === "Coach Agreement Terms" && (
-            <div className=" p-6  space-y-2" >
+            <InfoCard title="📄 Agreement Terms">
               {coach.agreement_terms ? (
-                <div className="bg-white p-6 rounded-xl shadow space-y-2">
-                  <h3 className="font-semibold text-lg">📄 Agreement Terms</h3>
-                  <div
-                    className="prose max-w-none"
-                    dangerouslySetInnerHTML={{ __html: coach.agreement_terms }}
-                  />
-                </div>
+                <div
+                  className="prose max-w-none"
+                  dangerouslySetInnerHTML={{ __html: coach.agreement_terms }}
+                />
               ) : (
                 <p>No agreement terms found</p>
               )}
-            </div>
+            </InfoCard>
           )}
 
           {/* Agreements Tab */}
           {activeTab === "Agreements" && (
             <div className="space-y-4 p-6">
-              <div className="bg-white p-6 rounded-xl shadow space-y-2">
-                <h3 className="font-semibold text-lg">✅ Agreements</h3>
+              <InfoCard title="✅ Agreements">
                 <p>
                   Certifications and Licenses:{" "}
                   {coach.agree_certification ? "Yes" : "Not Found"}
@@ -492,12 +484,9 @@ export default function CoachDetails() {
                   Terms & Conditions:{" "}
                   {coach.agree_terms_conditions ? "Yes" : "Not Found"}
                 </p>
-              </div>
+              </InfoCard>
 
-              <div className="bg-white p-6 rounded-xl shadow space-y-2">
-                <h3 className="font-semibold text-lg">
-                  📖 Guidelines Read Status
-                </h3>
+              <InfoCard title="📖 Guidelines Read Status">
                 <ul className="list-disc pl-6 text-gray-700">
                   <li>
                     Awareness Guideline:{" "}
@@ -532,7 +521,7 @@ export default function CoachDetails() {
                     {coach.has_read_product_company_guideline ? "Yes" : "No"}
                   </li>
                 </ul>
-              </div>
+              </InfoCard>
             </div>
           )}
         </div>

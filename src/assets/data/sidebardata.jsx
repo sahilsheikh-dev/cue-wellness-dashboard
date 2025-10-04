@@ -1,4 +1,3 @@
-// src/components/common/Sidebar/SidebarData.jsx
 import {
   Home,
   UserCircle,
@@ -17,11 +16,10 @@ import {
   ClipboardList,
 } from "lucide-react";
 
-
 const SidebarData = [
   // {
   //   section: "CUE-WELLNESS",
-  //   links: [{ isTrigger: true }] 
+  //   links: [{ isTrigger: true }]
   // },
   {
     section: "ADMIN",
@@ -55,7 +53,7 @@ const SidebarData = [
           { name: "Questionnaire", path: "/questionnaire/awareness" },
           { name: "Meaning", path: "/meaning/awareness" },
           {
-            name: "Questionnaire - Guidelines",
+            name: "Guidelines",
             path: "/questionnaire/guidelines",
           },
         ],
@@ -65,7 +63,7 @@ const SidebarData = [
         icon: Users,
         children: [
           { name: "All Activies", path: "/activies/all" },
-          { name: "Connection - Guidelines", path: "/connections/guidelines" },
+          { name: "Guidelines", path: "/connections/guidelines" },
         ],
       },
       {
@@ -73,7 +71,7 @@ const SidebarData = [
         icon: BookOpen,
         children: [
           { name: "Meditation", path: "/meditation" },
-          { name: "Reflection - Guidelines", path: "/reflections/guidelines" },
+          { name: "Guidelines", path: "/reflections/guidelines" },
         ],
       },
       {
@@ -81,7 +79,7 @@ const SidebarData = [
         icon: Calendar,
         children: [
           { name: "All Events", path: "/events/all" },
-          { name: "Event - Guidelines", path: "/events/guidelines" },
+          { name: "Guidelines", path: "/events/guidelines" },
         ],
       },
       {

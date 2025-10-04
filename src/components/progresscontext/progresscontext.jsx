@@ -1,4 +1,3 @@
-// src/context/ProgressContext.jsx
 import { createContext, useState } from "react";
 
 const ProgressContext = createContext();

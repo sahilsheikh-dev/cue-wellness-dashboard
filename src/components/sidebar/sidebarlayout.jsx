@@ -1,5 +1,6 @@
+// src/components/common/Sidebar/SidebarLayout.jsx
 import { Outlet, useLocation } from "react-router-dom";
-import { SidebarProvider, SidebarTrigger } from ".././ui/sidebar";
+import { SidebarProvider } from ".././ui/sidebar";
 import { AppSidebar } from "./appsidebar";
 
 export default function SidebarLayout() {
@@ -14,20 +15,13 @@ export default function SidebarLayout() {
   }
 
   return (
-    <SidebarProvider className="h-screen w-screen  " >
-      <div className="flex h-screen w-screen ">
+    <SidebarProvider className="h-screen w-screen">
+      <div className="flex h-screen w-screen">
         <AppSidebar />
-        <main className="flex  flex-row space-x-3 flex-1 h-full overflow-y-auto p-2 rounded-tl-2xl">
-          <SidebarTrigger className="mb-4 p-3 rounded-md bg-white/20 backdrop-blur-md text-gray-200 hover:bg-white/30 hover:text-white shadow-md transition-all duration-300" />
-
-          <div className="flex-1">
-            <Outlet/> {/* nested routes render here */}
-          </div>
+        <main className="flex flex-1 h-full overflow-y-auto p-4 rounded-tl-2xl">
+          <Outlet /> {/* nested routes render here */}
         </main>
-
       </div>
     </SidebarProvider>
   );
-
-
 }

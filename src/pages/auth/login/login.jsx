@@ -1,4 +1,3 @@
-// src/pages/auth/login/login.jsx
 import { useState, useEffect } from "react";
 import { LoginForm } from "@/components/login-form/login-form";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";

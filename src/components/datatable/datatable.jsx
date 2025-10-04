@@ -178,7 +178,7 @@ export function DataTable({
   const statusFilter = table.getColumn("status")?.getFilterValue() || [];
 
   return (
-    <div className="min-h-screen bg-white p-8 rounded-xl shadow-lg mx-auto my-8">
+    <div className="max-h-screen max-w-screen bg-white p-8 rounded-xl mx-auto">
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-4 mb-6">
         {/* Global search */}

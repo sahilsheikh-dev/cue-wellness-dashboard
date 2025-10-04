@@ -120,14 +120,16 @@
 @layer base {
     * {
         @apply border-border outline-ring/50;
-        
-        
+
+
 
     }
 
     body {
         @apply bg-background text-foreground;
+        font-family: 'Poppins', sans-serif;
     }
+
     /* .bg-white{
         background-color: white;
     } */

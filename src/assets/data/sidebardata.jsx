@@ -14,24 +14,26 @@ import {
   GraduationCap,
   Store,
   ClipboardList,
+  Package,
 } from "lucide-react";
 
 const SidebarData = [
   // {
-  //   section: "CUE-WELLNESS",
-  //   links: [{ isTrigger: true }]
-  // },
-  {
-    section: "ADMIN",
-    links: [
-      { name: "Dashboard Statistics", path: "/dashboard", icon: Home },
-      { name: "App", path: "/app", icon: Calendar },
-      { name: "My Profile", path: "/profile", icon: UserCircle },
-    ],
-  },
-  {
-    section: "User Management",
-    links: [
+    //   section: "CUE-WELLNESS",
+    //   links: [{ isTrigger: true }]
+    // },
+    {
+      section: "ADMIN",
+      links: [
+        { name: "Dashboard Statistics", path: "/dashboard", icon: Home },
+        { name: "App", path: "/app", icon: Calendar },
+        { name: "My Profile", path: "/profile", icon: UserCircle },
+        { name: "Settings", path: "/settings", icon: Settings },
+      ],
+    },
+    {
+      section: "User Management",
+      links: [
       { name: "Clients", path: "/clients", icon: Users },
       { name: "Coaches", path: "/coaches", icon: GraduationCap },
       {
@@ -50,8 +52,7 @@ const SidebarData = [
         name: "Awareness",
         icon: FileText,
         children: [
-          { name: "Questionnaire", path: "/questionnaire/awareness" },
-          { name: "Meaning", path: "/meaning/awareness" },
+          { name: "All Topics", path: "/alltopics/awareness" },
           {
             name: "Guidelines",
             path: "/questionnaire/guidelines",
@@ -71,25 +72,43 @@ const SidebarData = [
         icon: BookOpen,
         children: [
           { name: "Meditation", path: "/meditation" },
+          { name: "Guide", path: "/guide/reflections" },
+          { name: "Audio", path: "/audio/reflections" },
           { name: "Guidelines", path: "/reflections/guidelines" },
+        ],
+      },
+         {
+        name: "Sessions",
+        icon: Calendar,
+        children: [
+          { name: "All Sessions", path: "/sessions/all" },
+          { name: "Guidelines", path: "/sessions/guidelines" },
         ],
       },
       {
         name: "Events",
-        icon: Calendar,
+        icon: ClipboardList,
         children: [
           { name: "All Events", path: "/events/all" },
           { name: "Guidelines", path: "/events/guidelines" },
         ],
       },
       {
+        name: "Products",
+        icon: Package,
+        children: [
+          { name: "All Products", path: "/products/all" },
+          { name: "Guidelines", path: "/prodducts/guidelines" },
+        ],
+      },
+      {
         name: "Chat",
         icon: MessageSquare,
         children: [
-          { name: "Client Chats", path: "/chat/clients" },
-          { name: "Coach Chats", path: "/chat/coaches" },
-          { name: "Event Organizer Chats", path: "/chat/event-organizers" },
-          { name: "Product Company Chats", path: "/chat/product-companies" },
+          { name: "Client", path: "/chat/clients" },
+          { name: "Coach", path: "/chat/coaches" },
+          { name: "Event Organizer", path: "/chat/event-organizers" },
+          { name: "Product Company", path: "/chat/product-companies" },
         ],
       },
     ],
@@ -106,22 +125,21 @@ const SidebarData = [
         name: "Terms and Conditions",
         icon: FileText,
         children: [
-          { name: "T&Cs - Client", path: "/terms/client" },
-          { name: "T&Cs - Coach", path: "/terms/coach" },
-          { name: "T&Cs - Event Organizer", path: "/terms/event-organizer" },
-          { name: "T&Cs - Product Company", path: "/terms/product-company" },
+          { name: "Client", path: "/terms/client" },
+          { name: "Coach", path: "/terms/coach" },
+          { name: "Event Organizer", path: "/terms/event-organizer" },
+          { name: "Product Company", path: "/terms/product-company" },
         ],
       },
     ],
   },
-  {
-    section: "System",
-    links: [
-      { name: "Countries", path: "/system/countries", icon: Globe },
-      { name: "Languages", path: "/system/languages", icon: Globe },
-      { name: "Settings", path: "/settings", icon: Settings },
-    ],
-  },
+  // {
+  //   section: "System",
+  //   links: [
+  //     { name: "Countries", path: "/system/countries", icon: Globe },
+  //     { name: "Languages", path: "/system/languages", icon: Globe },
+  //   ],
+  // },
   {
     links: [{ name: "Logout", path: "/logout", icon: LogOut }],
   },

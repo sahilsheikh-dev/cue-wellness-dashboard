@@ -43,6 +43,7 @@ import {
   Trash2,
   RefreshCw,
 } from "lucide-react";
+import LayoutPage from "../../components/layout/layoutPage";
 
 /**
  * Activities Explorer with CRUD
@@ -305,160 +306,133 @@ export default function AllActivities() {
   };
 
   return (
-    <div className="flex justify-center bg-blue-100 max-h-screen py-8 px-4">
-      {/* Fixed-width main container */}
-      <div className="w-screen max-w-[1200px] bg-white rounded-lg shadow-lg p-6 relative">
-        {/* Progress bar */}
-        {busy && (
-          <div className="fixed top-0 left-0 w-full z-[60]">
-            <Progress value={progress} className="h-1 rounded-none" />
-          </div>
-        )}
+    <LayoutPage title="All Activities">
+      {/* Columns */}
+      <div className="flex overflow-x-auto p-2 gap-3">
+        {/* Column 0: Roots */}
+        <Column
+          title="Root"
+          nodes={roots}
+          selectedId={selectedPath[0]?._id}
+          onClickItem={handleRootClick}
+          parentIdForAdd={null}
+          onAddClick={() => openAddForParent(null)}
+          onRenameClick={(node) => openRenameForNode(node)}
+          onDeleteClick={(node) => setDeleteTarget(node)}
+        />
 
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold py-3">ALL ACTIVITIES</h1>
-          <Button
-            variant="outline"
-            onClick={refreshCurrent}
-            title="Refresh current level"
-          >
-            <RefreshCw className="h-4 w-4 mr-2" />
-            Refresh
-          </Button>
-        </div>
+        {/* Subsequent columns */}
+        {selectedPath.map((node, idx) => {
+          const nodes = cache[node._id] || [];
+          const selectedId = selectedPath[idx + 1]?._id;
+          const onClickItem = (childNode) => openNode(childNode, idx + 1);
 
-        {/* Columns */}
-        <div className="flex border rounded-lg shadow-sm overflow-x-auto bg-gray-50 p-2 gap-3">
-          {/* Column 0: Roots */}
-          <Column
-            title="Root"
-            nodes={roots}
-            selectedId={selectedPath[0]?._id}
-            onClickItem={handleRootClick}
-            parentIdForAdd={null}
-            onAddClick={() => openAddForParent(null)}
-            onRenameClick={(node) => openRenameForNode(node)}
-            onDeleteClick={(node) => setDeleteTarget(node)}
-          />
-
-          {/* Subsequent columns */}
-          {selectedPath.map((node, idx) => {
-            const nodes = cache[node._id] || [];
-            const selectedId = selectedPath[idx + 1]?._id;
-            const onClickItem = (childNode) => openNode(childNode, idx + 1);
-
-            return (
-              <Column
-                key={node._id}
-                title={`Level ${idx + 2}`}
-                nodes={nodes}
-                selectedId={selectedId}
-                onClickItem={onClickItem}
-                parentIdForAdd={node._id}
-                onAddClick={() => openAddForParent(node._id)}
-                onRenameClick={(n) => openRenameForNode(n)}
-                onDeleteClick={(n) => setDeleteTarget(n)}
-              />
-            );
-          })}
-        </div>
-
-        {/* Add Modal */}
-        <Dialog open={addOpen} onOpenChange={setAddOpen}>
-          <DialogContent className="sm:max-w-[480px]">
-            <DialogHeader>
-              <DialogTitle>
-                {addParentId ? "Add Sub-Activity" : "Add Root Activity"}
-              </DialogTitle>
-              <DialogDescription>
-                {addParentId
-                  ? "This will be created under the selected parent."
-                  : "This will be created as a root activity."}
-              </DialogDescription>
-            </DialogHeader>
-            <div className="space-y-2">
-              <label className="text-sm">Title</label>
-              <Input
-                value={newTitle}
-                onChange={(e) => setNewTitle(e.target.value)}
-                placeholder="Enter title"
-              />
-            </div>
-            <DialogFooter className="mt-3">
-              <DialogClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DialogClose>
-              <Button
-                onClick={doCreate}
-                className="bg-blue-600 hover:bg-blue-700 text-white"
-              >
-                Save
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-
-        {/* Update Modal */}
-        <Dialog open={renameOpen} onOpenChange={setRenameOpen}>
-          <DialogContent className="sm:max-w-[480px]">
-            <DialogHeader>
-              <DialogTitle>Update Activity</DialogTitle>
-              <DialogDescription>
-                {selectedNode ? `Current: ${selectedNode.title}` : ""}
-              </DialogDescription>
-            </DialogHeader>
-            <div className="space-y-2">
-              <label className="text-sm">New title</label>
-              <Input
-                value={newTitle}
-                onChange={(e) => setNewTitle(e.target.value)}
-                placeholder="Enter new title"
-              />
-            </div>
-            <DialogFooter className="mt-3">
-              <DialogClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DialogClose>
-              <Button
-                onClick={doRename}
-                className="bg-blue-600 hover:bg-blue-700 text-white"
-              >
-                Update
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-
-        {/* Delete Confirm */}
-        <AlertDialog
-          open={!!deleteTarget}
-          onOpenChange={(v) => !v && setDeleteTarget(null)}
-        >
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>
-                Delete “{deleteTarget?.title}”?
-              </AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone.
-                {deleteTarget?.layer === 1
-                  ? " Since this is a root activity, its sub-activities will also be removed."
-                  : ""}
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction
-                className="bg-red-600 hover:bg-red-700"
-                onClick={doDelete}
-              >
-                Delete
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+          return (
+            <Column
+              key={node._id}
+              title={`Level ${idx + 2}`}
+              nodes={nodes}
+              selectedId={selectedId}
+              onClickItem={onClickItem}
+              parentIdForAdd={node._id}
+              onAddClick={() => openAddForParent(node._id)}
+              onRenameClick={(n) => openRenameForNode(n)}
+              onDeleteClick={(n) => setDeleteTarget(n)}
+            />
+          );
+        })}
       </div>
-    </div>
+      {/* Add Modal */}
+      <Dialog open={addOpen} onOpenChange={setAddOpen}>
+        <DialogContent className="sm:max-w-[480px]">
+          <DialogHeader>
+            <DialogTitle>
+              {addParentId ? "Add Sub-Activity" : "Add Root Activity"}
+            </DialogTitle>
+            <DialogDescription>
+              {addParentId
+                ? "This will be created under the selected parent."
+                : "This will be created as a root activity."}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-2">
+            <label className="text-sm">Title</label>
+            <Input
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              placeholder="Enter title"
+            />
+          </div>
+          <DialogFooter className="mt-3">
+            <DialogClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DialogClose>
+            <Button
+              onClick={doCreate}
+              className="bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              Save
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      {/* Update Modal */}
+      <Dialog open={renameOpen} onOpenChange={setRenameOpen}>
+        <DialogContent className="sm:max-w-[480px]">
+          <DialogHeader>
+            <DialogTitle>Update Activity</DialogTitle>
+            <DialogDescription>
+              {selectedNode ? `Current: ${selectedNode.title}` : ""}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-2">
+            <label className="text-sm">New title</label>
+            <Input
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              placeholder="Enter new title"
+            />
+          </div>
+          <DialogFooter className="mt-3">
+            <DialogClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DialogClose>
+            <Button
+              onClick={doRename}
+              className="bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              Update
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      {/* Delete Confirm */}
+      <AlertDialog
+        open={!!deleteTarget}
+        onOpenChange={(v) => !v && setDeleteTarget(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete “{deleteTarget?.title}”?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone.
+              {deleteTarget?.layer === 1
+                ? " Since this is a root activity, its sub-activities will also be removed."
+                : ""}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-red-600 hover:bg-red-700"
+              onClick={doDelete}
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </LayoutPage>
   );
 }
 
